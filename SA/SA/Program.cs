@@ -123,6 +123,7 @@ namespace SA
             DecetcInheritance decetcInheritance = new DecetcInheritance(tokenss);
           //  decetcInheritance.DetectionInheritanceClass();
             decetcInheritance.InheritanceToDelegationForClass();
+            //decetcInheritance.WriteAns();
             decetcInheritance.WriteAns(SeprationFiles,KeepUsings, dd);
             //Preconditions preconditions = new Preconditions();
             //preconditions.structOfInheritanceToken = decetcInheritance.structOfInheritanceTokens;
