@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace SA.Delegation
 {
-    class Monitoring
+    public class Monitoring
     {
+        public int RefactoreClass { get; set; }
+        public List<DatilsForEachClassMonitor>datilsForEachClassMonitors =new List<DatilsForEachClassMonitor> ();
     }
 }
