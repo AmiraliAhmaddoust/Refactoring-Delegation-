@@ -676,7 +676,188 @@ namespace SA.Delegation
             }
             monitoring.RefactoreClass = RefactoredClass;
         }     
+             public  void WriteAns(List<string> SeprationFiles,List<Token>KeepUsing, List<string> DestanationPath)
+        {
+         
+            int counter = 0;
+            int CounterIndex = 0;
+            Console.Clear();
+            Monitoring();
+            string[] DirectoryBulder = new string[DestanationPath.Count-1];
+ 
+            string Monitoringpath = @"D:\PrograminApps\ostad sbti\sakhtemanDade_project\New folder\" + "RefactoreClass.txt";
+            using (StreamWriter sw = File.CreateText(Monitoringpath))
+            {
+                sw.WriteLine("تعداد کلاس های رفکتور شده :  "+monitoring.RefactoreClass);
+                foreach (var item in monitoring.datilsForEachClassMonitors)
+                {
+                   
+                    if (item.Isrefactore == false)
+                    {
+                        sw.WriteLine(" شرح کلاس های ریفکتور نشده  ");
+                        sw.WriteLine(" نام کلاس :  "+ item.ClassName);
+
+                        if (item.NotRefactorByAbstarct != 0)
+                        {
+                            sw.WriteLine(" کلاس پدر ابسترکت دارد   ");
+                        }
+                        if(item.NotRefactorByThrowable != 0)
+                        {
+                            sw.WriteLine(" کلاس پدری از جنس  تروابل   دارد   ");
+                        }
+                        if(item.NotRefactorByOpenRecursion != 0)
+                        {
+                            sw.WriteLine(" یافتن اوپن ریکرشن    ");
+                        }
+                        if(item.NotRefactorBySyncronozation != 0)
+                        {
+                            sw.WriteLine(" یافتن سینکرانیزشن متد ها     ");
+                        }
+                    }
+                   
+
+                }
+            }
+            foreach (var item in SimpleClassREfactored)
+            {
+                if (SeprationFiles[counter] == item.ClassName)
+                {
+                   
+                    CounterIndex = counter;
+
+
+                    //یعنی باید یه فایل جدید بسازیم
+                 //   File.Delete(@"D:\PrograminApps\ostad sbti\sakhtemanDade_project\New folder\" + SeprationFiles[CounterIndex] + ".cs");
+                 //   string path = @"D:\PrograminApps\ostad sbti\sakhtemanDade_project\New folder\" + SeprationFiles[CounterIndex] + ".cs";
+                    string path=DestanationPath.Where(x=>x.Contains(SeprationFiles[CounterIndex]+"."+"cs")).FirstOrDefault();
+               File.Delete(path);  
+                    using (StreamWriter sw = File.CreateText(path))
+                    {
+                   
+                        for (int z = 0; z < KeepUsing.Count; z++)
+                        {
+                            if (KeepUsing[z].TokenType != TokenType.OpenBrace)
+                            {
+                                if (KeepUsing[z].Attribute == ".")
+                                {
+                                    sw.Write(KeepUsing[z].Attribute);
+                                }
+                                else if (KeepUsing[z].Attribute == ";")
+                                {
+                                    sw.WriteLine(KeepUsing[z].Attribute);
+                                }
+                                else
+                                {
+                                    sw.Write(KeepUsing[z].Attribute + " ");
+                                }
+                                KeepUsing.RemoveAt(z);
+                                z--;
+                            }
+                            else
+                            {
+                                sw.WriteLine(KeepUsing[z].Attribute);
+                                KeepUsing.RemoveAt(z);
+                                break;
+                            }
+                        }
+
+
+
+                        for (int i = item.beforeClassName.Count - 1; i >= 0; i--)
+                        {
+                            sw.Write(item.beforeClassName[i].token.Attribute + " ");
+                        }
+                        sw.WriteLine(item.ClassName);
+                        int step = 0;
+                        foreach (var any in item.dtails)
+                        {
+                            step++;
+
+                            if (any.token.TokenType == TokenType.OpenBrace || any.token.TokenType == TokenType.ClosedBrace || any.token.TokenType == TokenType.SemiColon)
+                            {
+                                sw.WriteLine(any.token.Attribute);
+                            }
+                            else
+                            {
+                                if (step + 1 < item.dtails.Count)
+                                {
+                                    if (any.token.TokenType == TokenType.Dot || item.dtails[step + 1].token.TokenType == TokenType.Dot)
+                                    {
+                                        sw.Write(any.token.Attribute);
+                                    }
+                                    else
+                                    {
+                                        sw.Write(any.token.Attribute + " ");
+                                    }
+                                }
+                                else
+                                {
+                                    sw.Write(any.token.Attribute + " ");
+                                }
+
+                            }
+
+                        }
+                    }
+
+
+
+                    if (counter + 1 < SeprationFiles.Count)
+                    {
+                        counter++;
+                    }
+
+                }
+                else
+                {
+                  //  string myfile = "D:\\PrograminApps\\ostad sbti\\sakhtemanDade_project\\New folder\\" + SeprationFiles[CounterIndex] + ".cs";
+                    string myfile = DestanationPath.Where(x => x.Contains(SeprationFiles[CounterIndex])).FirstOrDefault();
+                    using (StreamWriter sw = File.AppendText(myfile))
+                    {
+                        for (int i = item.beforeClassName.Count - 1; i >= 0; i--)
+                        {
+                            sw.Write(item.beforeClassName[i].token.Attribute + " ");
+                        }
+                        sw.WriteLine(item.ClassName);
+                        int step = 0;
+                        foreach (var any in item.dtails)
+                        {
+                            step++;
+
+                            if (any.token.TokenType == TokenType.OpenBrace || any.token.TokenType == TokenType.ClosedBrace || any.token.TokenType == TokenType.SemiColon)
+                            {
+                                sw.WriteLine(any.token.Attribute);
+                            }
+                            else
+                            {
+                                if (step + 1 < item.dtails.Count)
+                                {
+                                    if (any.token.TokenType == TokenType.Dot || item.dtails[step + 1].token.TokenType == TokenType.Dot)
+                                    {
+                                        sw.Write(any.token.Attribute);
+                                    }
+                                    else
+                                    {
+                                        sw.Write(any.token.Attribute + " ");
+                                    }
+                                }
+                                else
+                                {
+                                    sw.Write(any.token.Attribute + " ");
+                                }
+
+                            }
+
+                        }
+                    }
+                        //در همون فایل قبلی میریزه
+                     
                
+                }
+         
+            }
+       
+        }  
          }
       
 
