@@ -6,7 +6,15 @@ using System.Threading.Tasks;
 
 namespace SA.Delegation
 {
-    class structOfInheritanceTokens
+    public class structOfInheritanceTokens
     {
+        public string TokenType { set; get; }
+        public string TokenNameINProgram { set; get; }
+        public bool IsAbstarct = false;
+        /// <summary>
+        /// 
+        /// </summary>
+
+
     }
 }
