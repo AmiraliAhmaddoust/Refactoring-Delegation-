@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace SA.Delegation
 {
-      private List<Token> tokens { get; set; }
+    
+         public class DecetcInheritance
+    {
+               
+                  private List<Token> tokens { get; set; }
         private List<Token> Editedtokens = new List<Token>();
 
 
@@ -617,5 +621,11 @@ namespace SA.Delegation
 
             }
         }
+               
+               
+               
+               
+         }
+      
 
 }
