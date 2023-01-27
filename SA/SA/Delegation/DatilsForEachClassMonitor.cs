@@ -8,5 +8,6 @@ namespace SA.Delegation
 {
     class DatilsForEachClassMonitor
     {
+        test
     }
 }
