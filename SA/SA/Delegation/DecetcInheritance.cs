@@ -623,7 +623,59 @@ namespace SA.Delegation
         }
                
                
+          public void Monitoring()
+        {
+            int RefactoredClass = 0;
+            int NotRefactorByAbstarct = 0;
+            int NotRefactorByThrowable = 0;
+            int NotRefactorByOpenRecursion = 0;
+            int NotRefactorBySyncronozation = 0;
+            foreach (var item in ClassMustChangetoDelegation)
+            {
                
+                 NotRefactorByAbstarct = 0;
+                 NotRefactorByThrowable = 0;
+                 NotRefactorByOpenRecursion = 0;
+                 NotRefactorBySyncronozation = 0;
+
+                if (item.REfactorable == true)
+                {
+                    RefactoredClass++;
+
+                }
+                else
+                {
+                    if (item.IsParentAbstarct == true)
+                    {
+                        NotRefactorByAbstarct++;
+                    }
+                    if(item.IsParentThorwable == true)
+                    {
+                        NotRefactorByThrowable++;
+                    }
+                    if(item.OpenRecurtionExistInSuperClass == true)
+                    {
+                        NotRefactorByOpenRecursion++;
+                    }
+                    if (item.SynchronizingExist == true)
+                    {
+                        NotRefactorBySyncronozation++;
+                    }
+                }
+               
+                monitoring.datilsForEachClassMonitors.Add(new DatilsForEachClassMonitor {
+               
+                ClassName=item.Chilld,
+                NotRefactorByAbstarct=NotRefactorByAbstarct,
+                NotRefactorByThrowable=NotRefactorByThrowable,
+                NotRefactorByOpenRecursion=NotRefactorByOpenRecursion,
+                NotRefactorBySyncronozation=NotRefactorBySyncronozation,
+                Isrefactore=item.REfactorable
+               
+                });
+            }
+            monitoring.RefactoreClass = RefactoredClass;
+        }     
                
          }
       
