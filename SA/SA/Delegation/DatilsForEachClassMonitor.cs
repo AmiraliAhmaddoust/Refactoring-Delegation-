@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace SA.Delegation
 {
-    class DatilsForEachClassMonitor
+     public class DatilsForEachClassMonitor
     {
-        test
+        public string ClassName { get; set; }
+        public int NotRefactorByAbstarct { get; set; }
+        public int NotRefactorByThrowable { get; set; }
+        public int NotRefactorByOpenRecursion { get; set; }
+        public int NotRefactorBySyncronozation { get; set; }
+        public bool Isrefactore = false;
     }
 }
