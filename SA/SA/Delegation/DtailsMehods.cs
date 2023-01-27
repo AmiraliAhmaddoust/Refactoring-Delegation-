@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace SA.Delegation
 {
-    class DtailsMehods
+    public class DtailsMehods
     {
+        public Token token { set; get; }
+
     }
 }
