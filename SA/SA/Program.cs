@@ -1,4 +1,9 @@
-﻿using System;
+using SA.Delegation;
+using SA.Lexer;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace SA
 {
@@ -70,7 +75,7 @@ namespace SA
             //}
            
             List<string>SeprationFiles=new List<string>();
-            var tokenss = new Lexer().Tokenize(MainSource1);
+            var tokenss = new Lexer_().Tokenize(MainSource1);
          
             List<Token> KeepUsings=new List<Token>();
             bool Remove_loop = false;
