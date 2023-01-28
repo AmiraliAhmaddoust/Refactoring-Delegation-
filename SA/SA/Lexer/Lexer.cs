@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SA.Lexer
 {
-     public class Lexer
+     public class Lexer_
     {
 
         private CsharpDictionary Dictionary = new CsharpDictionary();
